@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/_icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/_icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/_icons/favicon-16x16.png">
+    <!-- Manifest -->
+    <link rel="manifest" href="/_icons/manifest.json">
+    <link rel="mask-icon" href="/_icons/safari-pinned-tab.svg" color="#cf3acf">
+    <!-- Theming, etc. -->
+    <meta name="theme-color" content="#0C0920">
+    <meta name="description" content="Collects color & emotion data from viewers of a performance/concert.">
+    <!-- OG:Tags -->
+    <meta property="og:url" content="https://collective-conscience.github.io">
+    <meta property="og:title" content="Collective Conscience">
+    <meta property="og:description" content="Collects color & emotion data from viewers of a performance/concert.">
+    <meta property="og:type" content="website">
+    <!-- OG:Image -->
+    <meta property="og:image" content="TODO">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="2400">
+    <meta property="og:image:height" content="1260">
+    <!-- Title -->
+    <title>Collective Conscience</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./style.css"/>
+    <!-- Scripts -->
+    <!------------->
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-database.js"></script>
+    <script>
+      var config = {
+        apiKey: "AIzaSyDIjC2xf9pbuxAavu0cEKlVRTFjgN6FGm0",
+        authDomain: "collective-conscience.firebaseapp.com",
+        databaseURL: "https://collective-conscience.firebaseio.com",
+        projectId: "collective-conscience",
+      };
+      firebase.initializeApp(config);
+      var db = firebase.database();
+      
+      var uid = db.ref('/users').push().key();
+      db.ref('/current_users/' + uid).set({ 
+        "connected" : true
+      });
+      db.ref('/users/' + uid).set({ 
+        "connected" : true,
+        "colors" : "",
+        "currentColor" : ""
+      });
+      
+      
+      db.ref('/current_users').on('child_added', function (snapshot) {    
+        
+      }); 
+
+    </script>
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"></script>
+    <!-- Local -->
+    <script src="./script.js"></script>
+  </head>
+  <body scroll="no" style="overflow: hidden">
+    <div id="email_screen">
+      <div class="banner">
+        
+      </div>
+      <div class="email_form">
+        <div class="input_group">
+          <p>Email Address:</p>
+          <input id="email" type="text" placeholder="Email Address" />
+        </div>
+        <div class="input_group">
+          <p>Full Name:</p>
+          <input id="full_name" type="text" placeholder="Full Name" />
+        </div>
+      </div>
+    </div>
+    <div id="app_screen">
+      
+    </div>
+    <div id="explanation_screen">
+      <div class="banner">
+        <div class="explanation">
+          <h3 class="explanation_heading">About This Project</h3>
+          <p class="explanation_text">
+            Founded by Florrie Marshall, “A Collective Conscience” received the 2018 "Interdisciplinary Arts Award” at Yale University's Center for Collaborative Arts and Media.
+            <br /><br />
+            The collaboration between Florrie Marshall (School of Music, ‘18) and Abhi Nayar (Computing in the Arts & Economics, ’18) explores the nexus between live musical performance and audience engagement by collecting real-time data through this app that reflects individual audience member’s interpretation of the music, and translates the data into an aggregate artistic on-screen visualization.
+            <br /><br />
+            The visualization will mirror the collective experience of the audience.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <!-- We only need to support mobile sizing so will restrain width -->
+      <div id="title">
+        <!-- The absolutely positioned prompt -->
+        <h1>Click on the color that reflects your mood.</h1>
+      </div>
+      <div id="explanation">
+        <!-- An overview of the project that can be shown and hidden -->
+      </div>
+      <div id="content">
+        <div id="wheel-overlay"></div>
+        <!-- The color picker + color view -->
+        <canvas id="color-wheel" width="320" height="320" draggable="true"></canvas>
+        <div id="color-preview"></div>
+      </div>
+    </div>
+  </body>
+</html>
