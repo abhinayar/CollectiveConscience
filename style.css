@@ -1,0 +1,287 @@
+/*
+*
+*
+CSS for Collective Conscience Client
+By Abhi Nayar (https://linkedin.com/in/abhinayar) | March 2018
+*
+*
+Designed in collaboration with the CCAM @ Yale (https://ccam.yale.edu/), Florrie Marshall (Yale School of Music)
+*
+*
+All rights reserved, please contact author at abhishek[dot]nayar[at]yale[dot]edu for any additional
+information, bug reports, etc.
+*
+*/
+
+/* Global Style Resets */
+* {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  /*
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  */
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  max-height: 100vh;
+  overflow: hidden !important;
+}
+
+body {
+  position: relative;
+  width: 100%;
+  position: relative;
+  font-size: 16px;
+  font-family: 'Raleway', 'Montserrat', 'Roboto', 'Helvetica Neue', 'Helvetica', sans-serif;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  background-color: #44107A;
+  color: #fff;
+  height: 100vh;
+  max-height: 100vh;
+  width: 100%;
+  overflow: hidden !important;
+}
+
+#container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.main_screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  background-image: linear-gradient(-225deg, #231557 0%, #44107A 29%, #FF1361 67%, #FFF800 100%);
+}
+#email_screen {
+  z-index: 10;
+}
+#explanation_screen {
+  z-index: 8;
+  background: rgba(0, 0, 0, 0.95);
+}
+#app_screen {
+  z-index: 8;
+  background: #0C0920;
+}
+#spacer {
+  height: 1px;
+}
+
+
+/* Banner */
+.banner {
+  width: 100%;
+  position: absolute;
+  height: 50px;
+  top: 0;
+  left: 0;
+  text-align: left;
+} .banner_wrap {
+  width: 80%;
+  max-width: 420px;
+  margin: 0 auto;
+  position: relative;
+} .banner h1 {
+  display: inline-block;
+  font-size: 14px;
+  color: #fff;
+  margin-top: 24px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+} #explanation_screen .banner {
+  text-align: right;
+}
+
+/* Explanation Screen Loader */
+.explanation_icon,
+.close_icon {
+  position: absolute;
+  width: auto;
+  right: 0;
+  top: 20px;
+  text-align: center;
+  cursor: pointer;
+} .close_icon {
+  width: 120px;
+  right: auto;
+  left: 0;
+} .explanation_icon_marker,
+.close_icon_marker {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 17px;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #4801FF;
+  background-image: linear-gradient(-225deg, #AC32E4 0%, #7918F2 48%, #4801FF 100%);
+  box-shadow: 0 0 20px rgba(0,0,0,.17);
+} .close_icon_marker {
+  right: auto;
+  left: 0;
+  font-size: 12px;
+  height: auto;
+  width: auto;
+  padding: 3px 7px;
+  border-radius: 3px;
+}
+
+/* Inputs */
+.email_form {
+  position: relative;
+  display: block;
+  margin-top: 60px;
+  padding-top: 30px;
+  text-align: center;
+}
+.input_group {
+  position: relative;
+  display: block;
+  text-align: center;
+  width: 80%;
+  max-width: 420px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+.input_group p {
+  margin: 0;
+  margin-bottom: 3px;
+  padding: 0;
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+}
+.input_group input {
+  outline: 0;
+  color: #000;
+  border: none;
+  width: 100%;
+  height: 42px;
+  font-size: 14px;
+  padding-left: 16px;
+  border-radius: 3px;
+  font-family: 'Raleway';
+  font-weight: normal;
+  box-shadow: 0 0 20px rgba(0,0,0,.17);
+}
+.submit_btn {
+  position: relative;
+  display: block;
+  margin-top: 45px;
+}
+.submit_btn button {
+  width: 80%;
+  max-width: 420px;
+  height: 50px;
+  outline: 0;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  color: #fff;
+  font-family: 'Raleway';
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: #4801FF;
+  background-image: linear-gradient(-225deg, #AC32E4 0%, #7918F2 48%, #4801FF 100%);
+  box-shadow: 0 0 60px rgba(0,0,0,0.6);
+}
+
+
+/* Explanation */
+.explanation {
+  text-align: left;
+  width: 80%;
+  max-width: 420px;
+  margin: 0 auto;
+  margin-top: 75px;
+} .explanation_heading {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.015em;
+} .explanation_text {
+  font-size: 14px;
+  line-height: 1.8em;
+}
+
+/* App Screen */
+#content {
+  text-align: center;
+}
+
+#title {
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 30px;
+} #title h1 {
+  text-transform: uppercase;
+  max-width: 320px;
+  margin: 0 auto;
+  color: #aaa;
+  font-size: 18px;
+  letter-spacing: 0.025em;
+  line-height: 1.4em;
+} #title h1 .full {
+  color: #fff;
+}
+
+#wheel-overlay {
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  top: 16.5%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 999;
+  border: 6px solid #0C0920;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#color-wheel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 17%;
+  margin: 0 auto;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 2;
+}
+
+#color-preview {
+  position: fixed;
+  width: 100%;
+  height: 15%;
+  background-color: #000;
+  left: 0;
+  bottom: 0;
+}

@@ -4,13 +4,15 @@
     <!-- Meta Tags -->
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui">
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/_icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/_icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/_icons/favicon-16x16.png">
     <!-- Manifest -->
-    <link rel="manifest" href="/_icons/manifest.json">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <link rel="mask-icon" href="/_icons/safari-pinned-tab.svg" color="#cf3acf">
     <!-- Theming, etc. -->
     <meta name="theme-color" content="#0C0920">
@@ -28,9 +30,12 @@
     <!-- Title -->
     <title>Collective Conscience</title>
     <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
     <link rel="stylesheet" href="./style.css"/>
     <!-- Scripts -->
     <!------------->
+    <!-- Modernizr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-database.js"></script>
@@ -43,52 +48,66 @@
       };
       firebase.initializeApp(config);
       var db = firebase.database();
-      
-      var uid = db.ref('/users').push().key();
-      db.ref('/current_users/' + uid).set({ 
-        "connected" : true
-      });
-      db.ref('/users/' + uid).set({ 
-        "connected" : true,
-        "colors" : "",
-        "currentColor" : ""
-      });
-      
-      
-      db.ref('/current_users').on('child_added', function (snapshot) {    
-        
-      }); 
-
     </script>
     <!-- jQuery -->
     <script
       src="https://code.jquery.com/jquery-2.2.4.min.js"
       integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
       crossorigin="anonymous"></script>
-    <!-- Local -->
     <script src="./script.js"></script>
+    <!-- Local -->
   </head>
-  <body scroll="no" style="overflow: hidden">
-    <div id="email_screen">
-      <div class="banner">
-        
-      </div>
-      <div class="email_form">
-        <div class="input_group">
-          <p>Email Address:</p>
-          <input id="email" type="text" placeholder="Email Address" />
+  <body>
+    <div id="container">
+      <div id="email_screen" class="main_screen">
+        <div class="banner">
+          <div class="banner_wrap">
+            <div class="logo">
+              <h1>Collective Conscience</h1>
+            </div>
+            <div class="explanation_icon">
+              <span class="explanation_icon_marker">?</span>
+            </div>
+          </div>
         </div>
-        <div class="input_group">
-          <p>Full Name:</p>
-          <input id="full_name" type="text" placeholder="Full Name" />
+        <div class="email_form">
+          <div class="input_group">
+            <p>Full Name:</p>
+            <input id="full_name" name="name" type="text" placeholder="Ex: John Doe" />
+          </div>
+          <div class="input_group">
+            <p>Email Address:</p>
+            <input id="email" name="email" type="text" placeholder="Ex: johndoe@email.com" />
+          </div>
+          <div class="submit_btn">
+            <button type="submit" name="submit">Continue &rarr;</button>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="app_screen">
-      
-    </div>
-    <div id="explanation_screen">
-      <div class="banner">
+      <div id="app_screen" class="main_screen">
+        <!-- We only need to support mobile sizing so will restrain width -->
+        <div id="title">
+          <!-- The absolutely positioned prompt -->
+          <h1>Click on the <span class="full">color</span> that reflects your <span class="full">mood</span></h1>
+        </div>
+        <div id="explanation">
+          <!-- An overview of the project that can be shown and hidden -->
+        </div>
+        <div id="content">
+          <div id="wheel-overlay"></div>
+          <!-- The color picker + color view -->
+          <canvas id="color-wheel" width="320" height="320" draggable="true"></canvas>
+          <div id="color-preview"></div>
+        </div>
+      </div>
+      <div id="explanation_screen" class="main_screen">
+        <div class="banner">
+          <div class="banner_wrap">
+            <div class="close_icon">
+              <span class="close_icon_marker">&larr; BACK</span>
+            </div>
+          </div>
+        </div>
         <div class="explanation">
           <h3 class="explanation_heading">About This Project</h3>
           <p class="explanation_text">
@@ -100,22 +119,7 @@
           </p>
         </div>
       </div>
-    </div>
-    <div id="container">
-      <!-- We only need to support mobile sizing so will restrain width -->
-      <div id="title">
-        <!-- The absolutely positioned prompt -->
-        <h1>Click on the color that reflects your mood.</h1>
-      </div>
-      <div id="explanation">
-        <!-- An overview of the project that can be shown and hidden -->
-      </div>
-      <div id="content">
-        <div id="wheel-overlay"></div>
-        <!-- The color picker + color view -->
-        <canvas id="color-wheel" width="320" height="320" draggable="true"></canvas>
-        <div id="color-preview"></div>
-      </div>
+      <div id="spacer"></div>
     </div>
   </body>
 </html>

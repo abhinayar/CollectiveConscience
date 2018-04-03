@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/_icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/_icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/_icons/favicon-16x16.png">
+    <!-- Manifest -->
+    <link rel="manifest" href="/_icons/manifest.json">
+    <link rel="mask-icon" href="/_icons/safari-pinned-tab.svg" color="#cf3acf">
+    <!-- Theming, etc. -->
+    <meta name="theme-color" content="#0C0920">
+    <meta name="description" content="Collects color & emotion data from viewers of a performance/concert.">
+    <!-- OG:Tags -->
+    <meta property="og:url" content="https://collective-conscience.github.io/color.html">
+    <meta property="og:title" content="Collective Conscience">
+    <meta property="og:description" content="Collects color & emotion data from viewers of a performance/concert.">
+    <meta property="og:type" content="website">
+    <!-- OG:Image -->
+    <meta property="og:image" content="TODO">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="2400">
+    <meta property="og:image:height" content="1260">
+    <!-- Title -->
+    <title>Collective Conscience - Tracker</title>
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+    <style>
+      html {
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: #ff0000;
+        -webkit-transition: background-color 0.5s ease;
+        -ms-transition: background-color 0.5ms ease;
+        transition: background-color 0.5s ease;
+      }
+    </style>
+    <!-- Scripts -->
+    <!------------->
+    <!-- Modernizr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-database.js"></script>
+    <script>
+      var config = {
+        apiKey: "AIzaSyDIjC2xf9pbuxAavu0cEKlVRTFjgN6FGm0",
+        authDomain: "collective-conscience.firebaseapp.com",
+        databaseURL: "https://collective-conscience.firebaseio.com",
+        projectId: "collective-conscience",
+      };
+      firebase.initializeApp(config);
+      var db = firebase.database();
+    </script>
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"></script>
+    <!-- Local -->
+    <script>
+    lastColor = "";
+
+    setInterval(function() {
+      updateBackgroundColor();
+    }, 1000)
+
+    function updateBackgroundColor() {
+      rTotal = -1;
+      gTotal = -1;
+      bTotal = -1;
+
+      db.ref('/users').once('value')
+      .then(function(snap) {
+        if (snap.val()) {
+          var totalUsers = 0;
+
+          snap.forEach(function(childSnap) {
+            var user = childSnap.val();
+            if (user) {
+              if (user.connected) {
+                totalUsers++;
+                rTotal+= user.current_color_r,
+                gTotal+= user.current_color_g,
+                bTotal+= user.current_color_b;
+              }
+            } else {
+              console.log('User not found');
+            }
+          })
+
+          // Get final values
+          if (rTotal !== -1 && gTotal !== -1 && bTotal !== -1) {
+            var rFinal = rTotal / totalUsers,
+            gFinal = gTotal / totalUsers,
+            bFinal = bTotal / totalUsers;
+            var rgbString = "rgb(" + rFinal + ", " + gFinal + ", " + bFinal + ")";
+            console.log(rgbString);
+
+            // Update the background color
+            $('body').css('background-color', rgbString);
+
+            // Update the master
+            if (rgbString !== lastColor) {
+              lastColor = rgbString;
+              db.ref('final_colors').push({
+                color : rgbString,
+                timestamp : new Date().getTime()
+              });
+            }
+          }
+        }
+      });
+    } updateBackgroundColor()
+    </script>
+  </head>
+  <body>
+    <div id="container">
+
+    </div>
+  </body>
+</html>
