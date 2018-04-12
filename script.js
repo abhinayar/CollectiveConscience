@@ -26,6 +26,25 @@ lastActivity = null;
 
 // Once DOM is ready
 $(document).on('ready', function() {
+  // Just random gimme functions
+  $('.explanation_icon').bind('click', function() {
+    $('#explanation_screen').css('z-index', '11');
+    $('#app_screen #content').hide();
+    enableScroll();
+  });
+  $('.close_icon').bind('click', function() {
+    console.log('clicked c')
+    $('#explanation_screen').css('z-index', '8');
+    $('#app_screen #content').show();
+    disableScroll();
+  });
+  // Setup unload function
+  $(window).on("unload", function() {
+    if (user.id !== "" && typeof(user.id) != undefined) {
+      db.ref('/users/' + user.id + '/connected').set(false);
+    }
+  })
+
   // First thing we want to do is check for the email submission
   // But before we do this, let's check if the user is already in localStorage,
   // and if so pull them from there
@@ -55,6 +74,9 @@ $(document).on('ready', function() {
     user.name = storedUser.name,
     user.connected = false,
     user.colors = "";
+
+    // Send user to firebase
+    db.ref('/users/' + user.id).set(user);
 
     // Redirect to the app screen
     $('#email_screen').css('z-index', 8);
@@ -94,12 +116,7 @@ $(document).on('ready', function() {
         // Set item to Local Storage
         localStorage.setItem('user', JSON.stringify(user));
 
-        // Setup unload function
-        $(window).on("unload", function() {
-          if (user.id !== "" && typeof(user.id) != undefined) {
-            db.ref('/users/' + user.id + '/connected').set(false);
-          }
-        })
+
 
         // Send user to firebase
         db.ref('/users/' + user.id).set(user);
@@ -161,18 +178,6 @@ $(document).on('ready', function() {
     $('#color-wheel, #wheel-overlay').bind('click', function(e) {
       selectColor(e);
       e.preventDefault();
-    });
-
-    $('.explanation_icon').bind('click', function() {
-      $('#explanation_screen').css('z-index', '11');
-      $('#app_screen #content').hide();
-      enableScroll();
-    });
-    $('.close_icon').bind('click', function() {
-      console.log('clicked c')
-      $('#explanation_screen').css('z-index', '8');
-      $('#app_screen #content').show();
-      disableScroll();
     });
 
     // Scroll to top and disable Scrolling For UX
